@@ -9,6 +9,7 @@ import SignIn from '../SignIn/SignIn'
 import SignOut from '../SignOut/SignOut'
 import ChangePassword from '../ChangePassword/ChangePassword'
 import ProductPage from '../ProductPage'
+import PastOrderPage from '../PastOrderPage'
 // import Product from '../Product'
 
 class App extends Component {
@@ -52,6 +53,9 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} path="/products" render={() => (
             <ProductPage token={user.token} />
+          )} />
+          <AuthenticatedRoute user={user} path="/past-orders" render={() => (
+            <PastOrderPage token={user.token} />
           )} />
           <AuthenticatedRoute user={user} path='/sign-out' render={() => (
             <SignOut msgAlert={this.msgAlert} clearUser={this.clearUser} user={user} />
