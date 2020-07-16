@@ -24,9 +24,9 @@ class PastOrderPage extends Component {
     })
       .then(response => {
         // filter all of the orders and take only one with active false
-        this.setState({ pastOrderList: response.data.orders })
-        console.log('this is pastOrderList', this.pastOrderList)
-        console.log('this is orders', response.data.orders)
+        const orders = response.data.orders
+        const inactiveOrders = orders.filter(order => order.active === false)
+        this.setState({ pastOrderList: inactiveOrders })
       })
       .catch(console.error) // change this later to include a failure message
   }
@@ -34,7 +34,7 @@ class PastOrderPage extends Component {
   render () {
     return (
       this.state.pastOrderList.map(pastOrder => (
-        <PastOrder key={pastOrder.products} products={pastOrder.products} date={pastOrder.date} />
+        <PastOrder key={pastOrder._id} products={pastOrder.products} date={pastOrder.date} />
       ))
     )
   }
