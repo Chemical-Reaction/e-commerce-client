@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react'
 import CartItem from './CartItem'
 import axios from 'axios'
 import apiUrl from './../apiConfig'
+import { Redirect } from 'react-router-dom'
 
 const Cart = (props) => {
   const [active, setActive] = useState(null)
+
+  const [checkout, setCheckout] = useState(null)
 
   useEffect(() => {
     axios({
@@ -24,6 +27,17 @@ const Cart = (props) => {
       })
       .catch(console.error)
   }, [])
+
+  const toCheckout = (event) => {
+    console.log('you clicked the checkout button')
+    setCheckout(true)
+  }
+
+  if (checkout) {
+    return (
+      <Redirect to='/checkout'/>
+    )
+  }
 
   let productsJSX = ''
   let costJSX = ''
@@ -49,6 +63,7 @@ const Cart = (props) => {
     costJSX = (
       <div style={costStyle}>
         <h3>Order Total Cost: ${totalCost}</h3>
+        <button onClick={toCheckout}>Proceed to Checkout</button>
       </div>
     )
   }

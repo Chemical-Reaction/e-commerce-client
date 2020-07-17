@@ -70,6 +70,9 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/cart' render={() => (
             <Cart token={user.token} />
           )} />
+          <AuthenticatedRoute user={user} path='/checkout' render={() => (
+            <h1>Checkout Page</h1>
+          )} />
         </main>
       </Fragment>
     )
