@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import CartItem from './CartItem'
 import axios from 'axios'
 import apiUrl from './../apiConfig'
 
@@ -22,45 +23,23 @@ const Cart = (props) => {
         console.log('this is the orders array', orders)
         const activeOrder = orders.find(order => order.active === true)
         console.log('active order is', activeOrder)
-        setActive(activeOrder)
         setProducts(activeOrder.products)
+        setActive(activeOrder)
       })
       .catch(console.error)
   }, [])
 
-  if (!active) {
-    return (
-      <div>
-        <h1>My Cart</h1>
-        <h4>You currently have no items in your cart</h4>
-      </div>
-    )
-  }
-
   let productsJSX = ''
   let costJSX = ''
-  if (products) {
-    const productBoxStyle = {
-      border: '1px solid black',
-      padding: '5px',
-      marginBottom: '8px'
-    }
 
-    const nameStyle = {
-      marginBottom: '2px',
-      fontSize: '25px'
-    }
-
-    const descriptionStyle = {
-      marginBottom: '5px'
-    }
-
-    productsJSX = products.map(product => (
-      <div key={product._id} style={productBoxStyle}>
-        <p style={nameStyle}>{product.name}, ${product.price}</p>
-        <p style={descriptionStyle}>{product.description}</p>
-      </div>
-    ))
+  if (!active) {
+    productsJSX = <h4 style={{ textAlign: 'center' }}>Loading...</h4>
+  } else if (products && products.length === 0) {
+    productsJSX = (
+      <h4 style={{ textAlign: 'center' }}>You currently have no items in your cart</h4>
+    )
+  } else if (products && products.length > 0) {
+    productsJSX = products.map((product, productIndex) => <CartItem product={product} key={product._id} index={productIndex} productList={products} token={props.token} orderId={active._id} setActiveOrder={setActive} setCartProducts={setProducts} />)
 
     let totalCost = 0
     products.forEach(product => {
