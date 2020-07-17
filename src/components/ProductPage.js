@@ -21,7 +21,8 @@ class ProductPage extends Component {
         name: 'orange',
         description: 'citrus fruit',
         price: 75
-      }]
+      }],
+      cart: null
     }
   }
 
@@ -38,12 +39,27 @@ class ProductPage extends Component {
         this.setState({ productList: response.data.products })
       })
       .catch(console.error) // change this later to include a failure message
+
+    axios({
+      method: 'GET',
+      url: apiUrl + '/orders',
+      headers: {
+        'Authorization': `Token token=${this.props.token}`
+      }
+    })
+      .then((response) => {
+        console.log('this is my patch response', response)
+        const activeOrder = response.data.orders.find(order => order.active === true)
+        console.log('new active order is', activeOrder)
+        this.setState({ cart: activeOrder })
+      })
+      .catch(console.error) // change this later to include a failure message
   }
 
   render () {
     return (
       this.state.productList.map(product => (
-        <Product key={product.name} name={product.name} description={product.description} price={product.price} />
+        <Product key={product.name} name={product.name} description={product.description} price={product.price} productId={product._id} cart={this.state.cart} token={this.props.token}/>
       ))
     )
   }
