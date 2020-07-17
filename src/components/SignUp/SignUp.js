@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
+import axios from 'axios'
+import apiUrl from './../../apiConfig'
 
 import { signUp, signIn } from '../../api/auth'
 import messages from '../AutoDismissAlert/messages'
@@ -14,7 +16,8 @@ class SignUp extends Component {
     this.state = {
       email: '',
       password: '',
-      passwordConfirmation: ''
+      passwordConfirmation: '',
+      token: ''
     }
   }
 
@@ -29,12 +32,28 @@ class SignUp extends Component {
 
     signUp(this.state)
       .then(() => signIn(this.state))
-      .then(res => setUser(res.data.user))
+      .then(res => {
+        setUser(res.data.user)
+        this.setState({ token: res.data.user.token })
+      })
       .then(() => msgAlert({
         heading: 'Sign Up Success',
         message: messages.signUpSuccess,
         variant: 'success'
       }))
+      // created an axios request to the api to create a new active order
+      // upon successful sign up
+      .then(() => {
+        axios({
+          method: 'POST',
+          url: apiUrl + '/orders',
+          headers: {
+            'Authorization': `Bearer ${this.state.token}`
+          }
+        })
+          .then(console.log)
+          .catch(console.error)
+      })
       .then(() => history.push('/'))
       .catch(error => {
         this.setState({ email: '', password: '', passwordConfirmation: '' })
