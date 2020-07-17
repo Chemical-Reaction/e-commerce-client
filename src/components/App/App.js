@@ -9,7 +9,11 @@ import SignIn from '../SignIn/SignIn'
 import SignOut from '../SignOut/SignOut'
 import ChangePassword from '../ChangePassword/ChangePassword'
 import ProductPage from '../ProductPage'
+
+import Cart from '../Cart'
+
 import PastOrderPage from '../PastOrderPage'
+
 // import Product from '../Product'
 
 class App extends Component {
@@ -62,6 +66,9 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/cart' render={() => (
+            <Cart token={user.token} />
           )} />
         </main>
       </Fragment>
