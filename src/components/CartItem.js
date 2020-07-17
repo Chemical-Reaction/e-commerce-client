@@ -23,10 +23,11 @@ const CartItem = (props) => {
     console.log('id', props.product._id)
     console.log('props index', props.index)
 
-    console.log('this is the whole cart list', props.productList)
-    const editedCart = props.productList
-    editedCart.splice(props.index, 1)
-    console.log('the new cart is ', editedCart)
+    console.log('this is the whole cart list', props.currentOrder.products)
+    const currentOrderCopy = { ...props.currentOrder }
+    const editedProducts = [ ...currentOrderCopy.products ]
+    editedProducts.splice(props.index, 1)
+    console.log('the new cart is ', editedProducts)
     console.log('order id is', props.orderId)
     console.log('token is', props.token)
 
@@ -38,14 +39,14 @@ const CartItem = (props) => {
       },
       data: {
         order: {
-          products: editedCart
+          products: editedProducts
         }
       }
     })
       .then((response) => {
         console.log('this is my patch response', response)
         const activeOrder = response.data.orders.find(order => order.active === true)
-        console.log('active order after patch is', activeOrder)
+        console.log('new active order is', activeOrder)
         props.setActiveOrder(activeOrder)
       })
       .catch(console.error)
