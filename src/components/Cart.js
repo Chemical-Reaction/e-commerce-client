@@ -31,8 +31,19 @@ const Cart = (props) => {
     setCheckout(true)
   }
 
+  const calculateTotal = () => {
+    let total = 0
+    active.products.forEach(product => {
+      total += product.price
+    })
+    return total
+  }
+
   if (checkout) {
-    return <Redirect to='/checkout' />
+    return <Redirect to={{
+      pathname: '/checkout',
+      state: { total: calculateTotal() }
+    }} />
   }
 
   let productsJSX = ''
@@ -47,10 +58,7 @@ const Cart = (props) => {
   } else if (active.products && active.products.length > 0) {
     productsJSX = active.products.map((product, productIndex) => <CartItem product={product} key={productIndex} index={productIndex} token={props.token} orderId={active._id} setActiveOrder={setActive} currentOrder={active} />)
 
-    let totalCost = 0
-    active.products.forEach(product => {
-      totalCost += product.price
-    })
+    const totalCost = calculateTotal()
 
     const costStyle = {
       marginTop: '50px'

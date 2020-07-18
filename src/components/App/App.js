@@ -9,6 +9,7 @@ import SignIn from '../SignIn/SignIn'
 import SignOut from '../SignOut/SignOut'
 import ChangePassword from '../ChangePassword/ChangePassword'
 import ProductPage from '../ProductPage'
+import CheckoutPage from '../CheckoutPage'
 
 import Cart from '../Cart'
 
@@ -70,8 +71,8 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/cart' render={() => (
             <Cart token={user.token} />
           )} />
-          <AuthenticatedRoute user={user} path='/checkout' render={() => (
-            <h1>Checkout Page</h1>
+          <AuthenticatedRoute user={user} path='/checkout' render={(componentProps) => (
+            <CheckoutPage redirectState={componentProps} user={user}/>
           )} />
         </main>
       </Fragment>
