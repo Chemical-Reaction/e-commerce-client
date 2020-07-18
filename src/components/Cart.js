@@ -42,7 +42,10 @@ const Cart = (props) => {
   if (checkout) {
     return <Redirect to={{
       pathname: '/checkout',
-      state: { total: calculateTotal() }
+      state: {
+        subtotal: calculateTotal(),
+        items: active.products
+      }
     }} />
   }
 
