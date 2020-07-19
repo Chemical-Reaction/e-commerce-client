@@ -78,7 +78,7 @@ class App extends Component {
               <Cart token={user.token} />
             )} />
             <AuthenticatedRoute user={user} path='/checkout' render={(componentProps) => (
-              <CheckoutPage redirectState={componentProps} user={user}/>
+              <CheckoutPage redirectState={componentProps} user={user} msgAlert={this.msgAlert} />
             )} />
           </main>
         </Elements>

@@ -21,6 +21,7 @@ const CheckoutPage = (props) => {
   console.log('props on checkoutpage', props)
   const { subtotal, items, orderId, token } = props.redirectState.location.state
   const { history } = props.redirectState
+  const { msgAlert } = props
   const tax = Math.round((subtotal * 0.075) * 100) / 100
   const total = subtotal + tax
 
@@ -110,13 +111,23 @@ const CheckoutPage = (props) => {
       }
     })
     if (payload.error) {
-      setError(`Payment failed ${payload.error.message}`)
+      setError(`Payment failed. ${payload.error.message}`)
       setProcessing(false)
+      msgAlert({
+        heading: 'Payment Failed',
+        message: payload.error.message,
+        variant: 'danger'
+      })
     } else {
       setError(null)
       setProcessing(false)
       setSucceeded(true)
       console.log('payment succeeded')
+      msgAlert({
+        heading: 'Payment Successful',
+        message: 'Your order payment has been received',
+        variant: 'success'
+      })
       archiveAndCreateOrder()
     }
   }
