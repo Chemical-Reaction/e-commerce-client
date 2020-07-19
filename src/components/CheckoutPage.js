@@ -145,6 +145,22 @@ const CheckoutPage = (props) => {
     marginBottom: '5px'
   }
 
+  const poweredMessageStyling = {
+    fontStyle: 'italic',
+    textAlign: 'center',
+    marginTop: '5px',
+    fontSize: '13px'
+  }
+
+  const disclaimerStyling = {
+    color: 'red',
+    display: 'block',
+    width: '50vw',
+    margin: '0 auto',
+    textAlign: 'center',
+    fontSize: '12px'
+  }
+
   return (
     <div>
       <h1 style={{ textAlign: 'center' }}>Checkout</h1>
@@ -187,7 +203,8 @@ const CheckoutPage = (props) => {
           Payment Succeeded
         </p>
       </form>
-      <p style={{ fontStyle: 'italic', textAlign: 'center', marginTop: '5px', fontSize: '13px' }}>Payment Powered by Stripe</p>
+      <p style={poweredMessageStyling}>Payment Powered by Stripe</p>
+      <p style={disclaimerStyling}>Disclaimer: Payments are for demonstration purposes only. To complete your demo payment, please use the following card number: 4242 4242 4242 4242. Any Exp. Date, CVC, and ZIP may be used.</p>
     </div>
   )
 }
