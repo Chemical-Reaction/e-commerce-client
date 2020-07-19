@@ -142,13 +142,7 @@ const CheckoutPage = (props) => {
         )}
         {/* Show a success message upon completion */}
         <p className={succeeded ? 'result-message' : 'result-message hidden'}>
-          Payment succeeded, see the result in your
-          <a
-            href={'https://dashboard.stripe.com/test/payments'}
-          >
-            {' '}
-            Stripe dashboard.
-          </a> Refresh the page to pay again.
+          Payment Succeeded
         </p>
       </form>
       <p style={{ fontStyle: 'italic', textAlign: 'center', marginTop: '5px', fontSize: '13px' }}>Payment Powered by Stripe</p>
