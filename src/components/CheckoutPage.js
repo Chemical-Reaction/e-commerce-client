@@ -120,9 +120,9 @@ const CheckoutPage = (props) => {
       <h3>Order Total: ${total.toFixed(2)}</h3>
       <p>Your email is: {props.user.email}</p>
       <br />
-      <form id="payment-form" onSubmit={handleSubmit}>
+      <form id="payment-form" className="stripe-form" onSubmit={handleSubmit}>
         <CardElement id="card-element" options={cardStyle} onChange={handleChange} />
-        <button
+        <button className="stripe-button"
           disabled={processing || disabled || succeeded}
           id="submit"
         >
@@ -151,6 +151,7 @@ const CheckoutPage = (props) => {
           </a> Refresh the page to pay again.
         </p>
       </form>
+      <p style={{ fontStyle: 'italic', textAlign: 'center', marginTop: '5px', fontSize: '13px' }}>Payment Powered by Stripe</p>
     </div>
   )
 }
