@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Redirect } from 'react-router-dom'
+import { Redirect, withRouter } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from './../apiConfig'
 
@@ -19,11 +19,41 @@ const CheckoutPage = (props) => {
   const elements = useElements()
 
   console.log('props on checkoutpage', props)
-  const { subtotal, items } = props.redirectState.location.state
+  const { subtotal, items, orderId, token } = props.redirectState.location.state
+  const { history } = props.redirectState
   const tax = Math.round((subtotal * 0.075) * 100) / 100
   const total = subtotal + tax
 
   const [backToCart, setBackToCart] = useState(false)
+
+  const archiveAndCreateOrder = () => {
+    axios({
+      method: 'PATCH',
+      url: apiUrl + `/orders/${orderId}`,
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      data: {
+        order: {
+          active: false
+        }
+      }
+    })
+      .then(() => createNewOrder())
+      .then(() => history.push('/past-orders'))
+      .catch(console.error)
+  }
+
+  const createNewOrder = () => {
+    axios({
+      method: 'POST',
+      url: apiUrl + '/orders',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .catch(console.error)
+  }
 
   useEffect(() => {
     console.log('useEffect is being run')
@@ -87,6 +117,7 @@ const CheckoutPage = (props) => {
       setProcessing(false)
       setSucceeded(true)
       console.log('payment succeeded')
+      archiveAndCreateOrder()
     }
   }
 
@@ -150,4 +181,4 @@ const CheckoutPage = (props) => {
   )
 }
 
-export default CheckoutPage
+export default withRouter(CheckoutPage)
