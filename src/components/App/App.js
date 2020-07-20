@@ -75,7 +75,7 @@ class App extends Component {
               <ChangePassword msgAlert={this.msgAlert} user={user} />
             )} />
             <AuthenticatedRoute user={user} path='/cart' render={() => (
-              <Cart token={user.token} />
+              <Cart token={user.token} msgAlert={this.msgAlert}/>
             )} />
             <AuthenticatedRoute user={user} path='/checkout' render={(componentProps) => (
               <CheckoutPage redirectState={componentProps} user={user} msgAlert={this.msgAlert} />

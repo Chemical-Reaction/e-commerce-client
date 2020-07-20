@@ -61,7 +61,7 @@ const Cart = (props) => {
       <h4 style={{ textAlign: 'center' }}>You currently have no items in your cart</h4>
     )
   } else if (active.products && active.products.length > 0) {
-    productsJSX = active.products.map((product, productIndex) => <CartItem product={product} key={productIndex} index={productIndex} token={props.token} orderId={active._id} setActiveOrder={setActive} currentOrder={active} />)
+    productsJSX = active.products.map((product, productIndex) => <CartItem product={product} key={productIndex} index={productIndex} token={props.token} orderId={active._id} setActiveOrder={setActive} currentOrder={active} msgAlert={props.msgAlert}/>)
 
     const totalCost = calculateTotal()
 
