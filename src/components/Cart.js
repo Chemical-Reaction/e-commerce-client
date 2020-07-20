@@ -66,7 +66,8 @@ const Cart = (props) => {
     const totalCost = calculateTotal()
 
     const costStyle = {
-      marginTop: '50px'
+      marginTop: '50px',
+      textAlign: 'right'
     }
 
     costJSX = (

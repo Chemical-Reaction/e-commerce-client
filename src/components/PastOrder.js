@@ -9,7 +9,8 @@ const PastOrder = (props) => {
   const costStyle = {
     marginTop: '20px',
     marginBottom: '5px',
-    fontSize: '20px'
+    fontSize: '20px',
+    textAlign: 'right'
   }
 
   const nameStyle = {
@@ -25,17 +26,22 @@ const PastOrder = (props) => {
     border: '1px solid black',
     padding: '5px',
     marginBottom: '8px',
-    width: '50vw'
+    width: '50vw',
+    marginLeft: 'auto',
+    marginRight: 'auto'
   }
 
   const dateStyle = {
-    marginBottom: '5px'
+    marginBottom: '10px'
   }
 
   const orderStyle = {
     border: '2px solid black',
     padding: '10px',
-    marginBottom: '20px'
+    marginBottom: '20px',
+    width: '60vw',
+    marginLeft: 'auto',
+    marginRight: 'auto'
   }
 
   const productNewList = props.products.map((product, productIndex) => (

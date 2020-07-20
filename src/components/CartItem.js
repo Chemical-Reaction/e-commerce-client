@@ -5,8 +5,10 @@ import apiUrl from './../apiConfig'
 const CartItem = (props) => {
   const productBoxStyle = {
     border: '1px solid black',
-    padding: '5px',
-    marginBottom: '8px'
+    padding: '10px',
+    marginBottom: '8px',
+    maxWidth: '50vw',
+    margin: '10px auto'
   }
 
   const nameStyle = {
