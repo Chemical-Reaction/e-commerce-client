@@ -18,7 +18,6 @@ const CheckoutPage = (props) => {
   const stripe = useStripe()
   const elements = useElements()
 
-  console.log('props on checkoutpage', props)
   const { subtotal, items, orderId, token } = props.redirectState.location.state
   const { history } = props.redirectState
   const { msgAlert } = props
@@ -57,7 +56,6 @@ const CheckoutPage = (props) => {
   }
 
   useEffect(() => {
-    console.log('useEffect is being run')
     axios({
       method: 'POST',
       url: apiUrl + '/create-payment-intent',
@@ -69,7 +67,6 @@ const CheckoutPage = (props) => {
       }
     })
       .then(data => {
-        console.log('this is response data', data)
         setClientSecret(data.data.clientSecret)
       })
   }, [])
@@ -122,7 +119,6 @@ const CheckoutPage = (props) => {
       setError(null)
       setProcessing(false)
       setSucceeded(true)
-      console.log('payment succeeded')
       msgAlert({
         heading: 'Payment Successful',
         message: 'Your order payment has been received',

@@ -27,7 +27,6 @@ class ProductPage extends Component {
   }
 
   componentDidMount () {
-    console.log('props are', this.props)
     axios({
       method: 'GET',
       url: apiUrl + '/products'
@@ -46,9 +45,7 @@ class ProductPage extends Component {
         }
       })
         .then((response) => {
-          console.log('this is my patch response', response)
           const activeOrder = response.data.orders.find(order => order.active === true)
-          console.log('new active order is', activeOrder)
           this.setState({ cart: activeOrder })
         })
         .catch(console.error) // change this later to include a failure message
