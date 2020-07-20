@@ -49,7 +49,18 @@ const CartItem = (props) => {
         console.log('new active order is', activeOrder)
         props.setActiveOrder(activeOrder)
       })
-      .catch(console.error)
+      .then(() => props.msgAlert({
+        heading: 'Removed from cart',
+        message: `You successfully removed ${props.product.name} from the cart`,
+        variant: 'success'
+      }))
+      .catch(() => {
+        props.msgAlert({
+          heading: 'Failed to remove item',
+          message: 'An error occured, try again',
+          variant: 'danger'
+        })
+      })
   }
 
   return (

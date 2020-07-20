@@ -27,7 +27,13 @@ const Product = (props) => {
             variant: 'success'
           })
         })
-        .catch(console.error)
+        .catch(() => {
+          props.msgAlert({
+            heading: 'Adding product failed',
+            message: 'Adding product to the cart failed',
+            variant: 'danger'
+          })
+        })
     } else {
       // this is where to handle a user's product page actions when not logged in
       console.log('you are not logged in. please log in to add to cart')
