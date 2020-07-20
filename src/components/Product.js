@@ -44,6 +44,8 @@ const Product = (props) => {
   const productStyles = {
     border: '3px solid black',
     margin: '10px',
+    marginTop: '30px',
+    marginBottom: '30px',
     padding: '5px',
     width: '300px'
   }
