@@ -58,7 +58,7 @@ const CartItem = (props) => {
   return (
     <div style={productBoxStyle}>
       <p style={nameStyle}>{props.product.name}, ${props.product.price}</p>
-      <img src={props.product.image} width='300'/>
+      <img src={props.product.image} width='150' height='150'/>
       <p style={descriptionStyle}>{props.product.description}</p>
       <button onClick={removeItem}>Remove from Cart</button>
     </div>

@@ -56,8 +56,8 @@ class ProductPage extends Component {
     return (
       <div className='container'>
         <div className='row' style={{ display: 'flex', justifyContent: 'space-around' }}>
-          {this.state.productList.map(product => (
-            <Product key={product.name} name={product.name} description={product.description} price={product.price}
+          {this.state.productList.map((product, productIndex) => (
+            <Product key={productIndex} name={product.name} description={product.description} price={product.price}
               image={product.image} productId={product._id} cart={this.state.cart} token={this.props.token} msgAlert={this.props.msgAlert}/>
           ))}
         </div>
