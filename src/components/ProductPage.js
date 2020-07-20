@@ -9,19 +9,7 @@ class ProductPage extends Component {
     super()
 
     this.state = {
-      productList: [{
-        name: 'apple',
-        description: 'a good fruit',
-        price: 5
-      }, {
-        name: 'banana',
-        description: 'a yellow fruit',
-        price: 3
-      }, {
-        name: 'orange',
-        description: 'citrus fruit',
-        price: 75
-      }],
+      productList: [],
       cart: null
     }
   }
