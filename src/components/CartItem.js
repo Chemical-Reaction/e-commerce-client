@@ -21,17 +21,9 @@ const CartItem = (props) => {
   }
 
   const removeItem = (event) => {
-    console.log('remove!!!')
-    console.log('id', props.product._id)
-    console.log('props index', props.index)
-
-    console.log('this is the whole cart list', props.currentOrder.products)
     const currentOrderCopy = { ...props.currentOrder }
     const editedProducts = [ ...currentOrderCopy.products ]
     editedProducts.splice(props.index, 1)
-    console.log('the new cart is ', editedProducts)
-    console.log('order id is', props.orderId)
-    console.log('token is', props.token)
 
     axios({
       method: 'PATCH',
@@ -46,9 +38,7 @@ const CartItem = (props) => {
       }
     })
       .then((response) => {
-        console.log('this is my patch response', response)
         const activeOrder = response.data.orders.find(order => order.active === true)
-        console.log('new active order is', activeOrder)
         props.setActiveOrder(activeOrder)
       })
       .then(() => props.msgAlert({

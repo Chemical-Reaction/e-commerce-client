@@ -17,11 +17,8 @@ const Cart = (props) => {
       }
     })
       .then(response => {
-        console.log('this is the orders response', response)
         const orders = response.data.orders
-        console.log('this is the orders array', orders)
         const activeOrder = orders.find(order => order.active === true)
-        console.log('active order is', activeOrder)
         setActive(activeOrder)
       })
       .catch(console.error)

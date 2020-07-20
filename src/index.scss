@@ -1,5 +1,9 @@
 @import '~bootstrap/scss/bootstrap';
 
+.container {
+  max-width: 1400px;
+}
+
 // Styles below are from and for the Stripe checkout form
 
 .stripe-form {

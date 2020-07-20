@@ -27,7 +27,6 @@ class ProductPage extends Component {
   }
 
   componentDidMount () {
-    console.log('props are', this.props)
     axios({
       method: 'GET',
       url: apiUrl + '/products'
@@ -46,9 +45,7 @@ class ProductPage extends Component {
         }
       })
         .then((response) => {
-          console.log('this is my patch response', response)
           const activeOrder = response.data.orders.find(order => order.active === true)
-          console.log('new active order is', activeOrder)
           this.setState({ cart: activeOrder })
         })
         .catch(console.error) // change this later to include a failure message
@@ -57,10 +54,14 @@ class ProductPage extends Component {
 
   render () {
     return (
-      this.state.productList.map(product => (
-        <Product key={product.name} name={product.name} description={product.description} price={product.price}
-          image={product.image} productId={product._id} cart={this.state.cart} token={this.props.token} msgAlert={this.props.msgAlert}/>
-      ))
+      <div className='container'>
+        <div className='row' style={{ display: 'flex', justifyContent: 'space-around' }}>
+          {this.state.productList.map(product => (
+            <Product key={product.name} name={product.name} description={product.description} price={product.price}
+              image={product.image} productId={product._id} cart={this.state.cart} token={this.props.token} msgAlert={this.props.msgAlert}/>
+          ))}
+        </div>
+      </div>
     )
   }
 }

@@ -51,10 +51,9 @@ class SignUp extends Component {
             'Authorization': `Bearer ${this.state.token}`
           }
         })
-          .then(console.log)
           .catch(console.error)
       })
-      .then(() => history.push('/'))
+      .then(() => history.push('/products'))
       .catch(error => {
         this.setState({ email: '', password: '', passwordConfirmation: '' })
         msgAlert({

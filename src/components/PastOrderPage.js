@@ -15,8 +15,6 @@ class PastOrderPage extends Component {
   }
 
   componentDidMount () {
-    console.log('props are', this.props)
-    console.log('state is', this.state)
     axios({
       method: 'GET',
       url: apiUrl + '/orders',
@@ -29,7 +27,6 @@ class PastOrderPage extends Component {
         const orders = response.data.orders
         const inactiveOrders = orders.filter(order => order.active === false)
         this.setState({ pastOrderList: inactiveOrders, loading: false })
-        console.log('inactive orders', inactiveOrders)
       })
       .catch(console.error) // change this later to include a failure message
   }

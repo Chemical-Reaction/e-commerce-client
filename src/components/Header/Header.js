@@ -6,9 +6,9 @@ import logo from './petsy-logo.png'
 const authenticatedOptions = (
   <Fragment>
     <Nav.Link href="#cart">Cart</Nav.Link>
+    <Nav.Link href="#past-orders">Past Orders</Nav.Link>
     <Nav.Link href="#change-password">Change Password</Nav.Link>
     <Nav.Link href="#sign-out">Sign Out</Nav.Link>
-    <Nav.Link href="#past-orders">Past Orders</Nav.Link>
   </Fragment>
 )
 
@@ -21,7 +21,6 @@ const unauthenticatedOptions = (
 
 const alwaysOptions = (
   <Fragment>
-    <Nav.Link href="#">Home</Nav.Link>
     <Nav.Link href="#products">Products</Nav.Link>
   </Fragment>
 )
