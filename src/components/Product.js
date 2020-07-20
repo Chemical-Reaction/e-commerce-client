@@ -43,9 +43,7 @@ const Product = (props) => {
 
   const productStyles = {
     border: '3px solid black',
-    margin: '10px',
-    marginTop: '30px',
-    marginBottom: '30px',
+    margin: '30px 20px',
     padding: '5px',
     width: '300px'
   }
@@ -56,11 +54,10 @@ const Product = (props) => {
 
   return (
     <div style={productStyles}>
-      <h2>Name: {props.name}</h2>
-      <img src={props.image} alt='Product' width='278' />
+      <h2>{props.name}</h2>
+      <img src={props.image} alt='Product' width='278' height='278' />
       <p>Description: {props.description}</p>
       <p>Price: ${props.price}</p>
-      <br />
       <button style={addButtonStyles} onClick={handleAddtoCart}>Add to Cart</button>
     </div>
   )
