@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
+import { Redirect } from 'react-router-dom'
 import CartItem from './CartItem'
 import axios from 'axios'
 import apiUrl from './../apiConfig'
 
 const Cart = (props) => {
   const [active, setActive] = useState(null)
+  const [checkout, setCheckout] = useState(null)
 
   useEffect(() => {
     axios({
@@ -15,15 +17,36 @@ const Cart = (props) => {
       }
     })
       .then(response => {
-        console.log('this is the orders response', response)
         const orders = response.data.orders
-        console.log('this is the orders array', orders)
         const activeOrder = orders.find(order => order.active === true)
-        console.log('active order is', activeOrder)
         setActive(activeOrder)
       })
       .catch(console.error)
   }, [])
+
+  const toCheckout = (event) => {
+    setCheckout(true)
+  }
+
+  const calculateTotal = () => {
+    let total = 0
+    active.products.forEach(product => {
+      total += product.price
+    })
+    return total
+  }
+
+  if (checkout) {
+    return <Redirect to={{
+      pathname: '/checkout',
+      state: {
+        subtotal: calculateTotal(),
+        items: active.products,
+        orderId: active._id,
+        token: props.token
+      }
+    }} />
+  }
 
   let productsJSX = ''
   let costJSX = ''
@@ -35,20 +58,19 @@ const Cart = (props) => {
       <h4 style={{ textAlign: 'center' }}>You currently have no items in your cart</h4>
     )
   } else if (active.products && active.products.length > 0) {
-    productsJSX = active.products.map((product, productIndex) => <CartItem product={product} key={product._id} index={productIndex} token={props.token} orderId={active._id} setActiveOrder={setActive} currentOrder={active} />)
+    productsJSX = active.products.map((product, productIndex) => <CartItem product={product} key={productIndex} index={productIndex} token={props.token} orderId={active._id} setActiveOrder={setActive} currentOrder={active} msgAlert={props.msgAlert}/>)
 
-    let totalCost = 0
-    active.products.forEach(product => {
-      totalCost += product.price
-    })
+    const totalCost = calculateTotal()
 
     const costStyle = {
-      marginTop: '50px'
+      marginTop: '50px',
+      textAlign: 'right'
     }
 
     costJSX = (
       <div style={costStyle}>
         <h3>Order Total Cost: ${totalCost}</h3>
+        <button onClick={toCheckout}>Proceed to Checkout</button>
       </div>
     )
   }

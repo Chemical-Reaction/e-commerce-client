@@ -7,7 +7,10 @@ const PastOrder = (props) => {
   })
 
   const costStyle = {
-    marginTop: '50px'
+    marginTop: '20px',
+    marginBottom: '5px',
+    fontSize: '20px',
+    textAlign: 'right'
   }
 
   const nameStyle = {
@@ -22,22 +25,37 @@ const PastOrder = (props) => {
   const productBoxStyle = {
     border: '1px solid black',
     padding: '5px',
-    marginBottom: '8px'
+    marginBottom: '8px',
+    width: '50vw',
+    marginLeft: 'auto',
+    marginRight: 'auto'
   }
 
-  const productNewList = props.products.map(product => (
-    <div key={product._id} style={productBoxStyle}>
+  const dateStyle = {
+    marginBottom: '10px'
+  }
+
+  const orderStyle = {
+    border: '2px solid black',
+    padding: '10px',
+    marginBottom: '20px',
+    width: '60vw',
+    marginLeft: 'auto',
+    marginRight: 'auto'
+  }
+
+  const productNewList = props.products.map((product, productIndex) => (
+    <div key={productIndex} style={productBoxStyle}>
       <p style={nameStyle}>{product.name}, ${product.price}</p>
       <p style={descriptionStyle}>{product.description}</p>
     </div>
   ))
   // h1 Past Orders should show up only once, not for every order
   return (
-    <div>
-      <h1>Past Orders</h1>
-      <p>{productNewList}</p>
-      <p>{props.date}</p>
-      <p style={costStyle}>Total: ${totalCost}</p>
+    <div style={orderStyle}>
+      <p style={dateStyle}>Order Date: {props.date}</p>
+      {productNewList}
+      <p style={costStyle}>Total (with tax): ${(totalCost * 1.075).toFixed(2)}</p>
     </div>
   )
 }
