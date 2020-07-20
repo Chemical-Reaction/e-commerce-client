@@ -62,8 +62,8 @@ class App extends Component {
             <Route path='/sign-in' render={() => (
               <SignIn msgAlert={this.msgAlert} setUser={this.setUser} />
             )} />
-            <AuthenticatedRoute user={user} path="/products" render={() => (
-              <ProductPage token={user.token} />
+            <Route user={user} path="/products" render={() => (
+              <ProductPage token={user ? user.token : null} msgAlert={this.msgAlert} />
             )} />
             <AuthenticatedRoute user={user} path="/past-orders" render={() => (
               <PastOrderPage token={user.token} />

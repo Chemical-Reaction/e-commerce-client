@@ -30,37 +30,36 @@ class ProductPage extends Component {
     console.log('props are', this.props)
     axios({
       method: 'GET',
-      url: apiUrl + '/products',
-      headers: {
-        'Authorization': `Token token=${this.props.token}`
-      }
+      url: apiUrl + '/products'
     })
       .then(response => {
         this.setState({ productList: response.data.products })
       })
       .catch(console.error) // change this later to include a failure message
 
-    axios({
-      method: 'GET',
-      url: apiUrl + '/orders',
-      headers: {
-        'Authorization': `Token token=${this.props.token}`
-      }
-    })
-      .then((response) => {
-        console.log('this is my patch response', response)
-        const activeOrder = response.data.orders.find(order => order.active === true)
-        console.log('new active order is', activeOrder)
-        this.setState({ cart: activeOrder })
+    if (this.props.token) {
+      axios({
+        method: 'GET',
+        url: apiUrl + '/orders',
+        headers: {
+          'Authorization': `Token token=${this.props.token}`
+        }
       })
-      .catch(console.error) // change this later to include a failure message
+        .then((response) => {
+          console.log('this is my patch response', response)
+          const activeOrder = response.data.orders.find(order => order.active === true)
+          console.log('new active order is', activeOrder)
+          this.setState({ cart: activeOrder })
+        })
+        .catch(console.error) // change this later to include a failure message
+    }
   }
 
   render () {
     return (
       this.state.productList.map(product => (
         <Product key={product.name} name={product.name} description={product.description} price={product.price}
-          image={product.image} productId={product._id} cart={this.state.cart} token={this.props.token}/>
+          image={product.image} productId={product._id} cart={this.state.cart} token={this.props.token} msgAlert={this.props.msgAlert}/>
       ))
     )
   }
