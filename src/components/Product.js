@@ -39,6 +39,7 @@ const Product = (props) => {
   return (
     <div style={productStyles}>
       <h2>Name: {props.name}</h2>
+      <img src={props.image} alt='Product' width='278' />
       <p>Description: {props.description}</p>
       <p>Price: ${props.price}</p>
       <br />
