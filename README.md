@@ -1,6 +1,6 @@
-# Petsey E-Commerce Store Client Application
+# Petsy E-Commerce Store Client Application
 
-  Our e-commerce store Petsey is a client application where users can browse pet products, add items to their cart, and submit an order by using the Stripe payment system at checkout.
+  Our e-commerce store Petsy is a client application where users can browse pet products, add items to their cart, and submit an order by using the Stripe payment system at checkout.
 
 # Planning
   First we worked on the user stories, and what we wanted our users to experience while using our application. Then, we worked on our wireframes for our e-coomerce store to get an idea of what we wanted our application to look like. Next, we created our Entity Relationship Diagram (ERD) in which mapped out our models which includes user, purchases, and products. We used pair programming and mob programming during creating this application, and were able to problem solve sucessfully due to collaborationg on different elements of our project.
