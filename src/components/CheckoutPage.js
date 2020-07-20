@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Redirect } from 'react-router-dom'
+import { Redirect, withRouter } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from './../apiConfig'
 
@@ -19,11 +19,42 @@ const CheckoutPage = (props) => {
   const elements = useElements()
 
   console.log('props on checkoutpage', props)
-  const { subtotal, items } = props.redirectState.location.state
+  const { subtotal, items, orderId, token } = props.redirectState.location.state
+  const { history } = props.redirectState
+  const { msgAlert } = props
   const tax = Math.round((subtotal * 0.075) * 100) / 100
   const total = subtotal + tax
 
   const [backToCart, setBackToCart] = useState(false)
+
+  const archiveAndCreateOrder = () => {
+    axios({
+      method: 'PATCH',
+      url: apiUrl + `/orders/${orderId}`,
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      data: {
+        order: {
+          active: false
+        }
+      }
+    })
+      .then(() => createNewOrder())
+      .then(() => history.push('/past-orders'))
+      .catch(console.error)
+  }
+
+  const createNewOrder = () => {
+    axios({
+      method: 'POST',
+      url: apiUrl + '/orders',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .catch(console.error)
+  }
 
   useEffect(() => {
     console.log('useEffect is being run')
@@ -80,13 +111,24 @@ const CheckoutPage = (props) => {
       }
     })
     if (payload.error) {
-      setError(`Payment failed ${payload.error.message}`)
+      setError(`Payment failed. ${payload.error.message}`)
       setProcessing(false)
+      msgAlert({
+        heading: 'Payment Failed',
+        message: payload.error.message,
+        variant: 'danger'
+      })
     } else {
       setError(null)
       setProcessing(false)
       setSucceeded(true)
       console.log('payment succeeded')
+      msgAlert({
+        heading: 'Payment Successful',
+        message: 'Your order payment has been received',
+        variant: 'success'
+      })
+      archiveAndCreateOrder()
     }
   }
 
@@ -101,6 +143,22 @@ const CheckoutPage = (props) => {
   const itemStyle = {
     marginTop: '5px',
     marginBottom: '5px'
+  }
+
+  const poweredMessageStyling = {
+    fontStyle: 'italic',
+    textAlign: 'center',
+    marginTop: '5px',
+    fontSize: '13px'
+  }
+
+  const disclaimerStyling = {
+    color: 'red',
+    display: 'block',
+    width: '50vw',
+    margin: '0 auto',
+    textAlign: 'center',
+    fontSize: '12px'
   }
 
   return (
@@ -145,9 +203,10 @@ const CheckoutPage = (props) => {
           Payment Succeeded
         </p>
       </form>
-      <p style={{ fontStyle: 'italic', textAlign: 'center', marginTop: '5px', fontSize: '13px' }}>Payment Powered by Stripe</p>
+      <p style={poweredMessageStyling}>Payment Powered by Stripe</p>
+      <p style={disclaimerStyling}>Disclaimer: Payments are for demonstration purposes only. To complete your demo payment, please use the following card number: 4242 4242 4242 4242. Any Exp. Date, CVC, and ZIP may be used.</p>
     </div>
   )
 }
 
-export default CheckoutPage
+export default withRouter(CheckoutPage)

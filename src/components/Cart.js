@@ -44,7 +44,9 @@ const Cart = (props) => {
       pathname: '/checkout',
       state: {
         subtotal: calculateTotal(),
-        items: active.products
+        items: active.products,
+        orderId: active._id,
+        token: props.token
       }
     }} />
   }
